@@ -22,8 +22,8 @@ import MuiAppBar from '@mui/material/AppBar';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import LogoutIcon from '@mui/icons-material/Logout';
-import SearchIcon from '@mui/icons-material/Search';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
+import QrCode2Icon from '@mui/icons-material/QrCode2';
 
 const drawerWidth = 240;
 
@@ -156,7 +156,7 @@ const MainLayoutt = () => {
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <Typography variant="h4" color="green">
-            MovieApp
+            SGIApp
           </Typography>
           <IconButton onClick={handleDrawer}>
             {theme.direction === 'rtl' ? (
@@ -170,20 +170,20 @@ const MainLayoutt = () => {
         <List>
           {/* Search */}
           <DrawerButton
-            icon={<SearchIcon />}
-            text="Search"
-            action={() => history('/search')}
+            icon={<QrCode2Icon />}
+            text="Scanear QR"
+            action={() => history('/collect')}
           />
           {/* Favorites */}
           <DrawerButton
-            icon={<FavoriteIcon />}
-            text="Favorites"
-            action={() => history('/favorites')}
+            icon={<RequestQuoteIcon />}
+            text="Lista de Cobranzas"
+            action={() => history('/listpay')}
           />
           {/* Logout */}
           <DrawerButton
             icon={<LogoutIcon />}
-            text="Logout"
+            text="Cerrar Sesión"
             action={logout}
           />
         </List>

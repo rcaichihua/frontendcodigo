@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { Navigate } from 'react-router-dom';
@@ -15,11 +16,14 @@ import Container from '@mui/material/Container';
 
 const Login = () => {
   const { login, isAuth } = useContext(AuthContext);
+  const [text, setText] = useState('');
+  const [errorTexto, setErrorTexto] = useState(false);
+  const [leyenda, setLeyenda] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log(data.get('user'));
+    // console.log(data.get('user'));
     login(data.get('user'), data.get('pass'));
   };
 
@@ -58,6 +62,20 @@ const Login = () => {
             label="User"
             name="user"
             autoFocus
+            variant="outlined"
+            defaultValue=""
+            onChange={(e) => {
+              setText(e.target.value);
+              if (text.length === 0) {
+                setErrorTexto(true);
+                setLeyenda('Ingrese un usuario');
+              } else {
+                setErrorTexto(false);
+                setLeyenda('');
+              }
+            }}
+            error={errorTexto}
+            helperText={leyenda}
           />
           <TextField
             margin="normal"
