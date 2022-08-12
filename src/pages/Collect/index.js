@@ -1,147 +1,55 @@
-import { useState, useRef } from 'react';
-import {
-  Box,
-  Container,
-  Grid,
-  Card,
-  CardContent,
-  Stack,
-  TextField,
-  Button,
-} from '@mui/material';
-import { styled } from '@mui/material/styles';
-import QrCode from 'qrcode';
-import { QrReader } from 'react-qr-reader';
+import React, { useState, useEffect } from 'react';
+import { Html5QrcodeScanner } from 'html5-qrcode';
 
 const Collect = () => {
-  const [text, setText] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
-  const [scanResultFile, setScanResultFile] = useState('');
-  const [scanResultWebCam, setScanResultWebCam] = useState('');
-  const [errorTexto, setErrorTexto] = useState(false);
-  const [leyenda, setLeyenda] = useState('');
-  const qrRef = useRef(null);
+  const [scannedCodes, setScannedCodes] = useState([]);
 
-  const generateQrCode = async () => {
-    try {
-      const response = await QrCode.toDataURL(text);
-      setImageUrl(response);
-    } catch (error) {
-      console.log(error);
+  function activateLasers() {
+    var decodedText = 'asdf';
+    var decodedResult = 'asdfasdfasdf';
+    console.log(scannedCodes);
+
+    setScannedCodes(
+      scannedCodes.concat([{ decodedText, decodedResult }])
+    );
+  }
+
+  useEffect(() => {
+    function onScanSuccess(decodedText, decodedResult) {
+      // handle the scanned code as you like, for example:
+      console.log(`Code matched = ${decodedText}`, decodedResult);
+      setScannedCodes(
+        scannedCodes.concat([{ decodedText, decodedResult }])
+      );
     }
-  };
-  const handleErrorFile = (error) => {
-    console.log(error);
-  };
-  const handleScanFile = (result) => {
-    if (result) {
-      setScanResultFile(result);
+
+    function onScanFailure(error) {
+      // handle scan failure, usually better to ignore and keep scanning.
+      // for example:
+      console.warn(`Code scan error = ${error}`);
     }
-  };
-  const onScanFile = () => {
-    qrRef.current.openImageDialog();
-  };
-  const handleErrorWebCam = (error) => {
-    console.log(error);
-  };
-  const handleScanWebCam = (result) => {
-    if (result) {
-      setScanResultWebCam(result);
-    }
-  };
+
+    let html5QrcodeScanner = new Html5QrcodeScanner(
+      'reader',
+      { fps: 10, qrbox: { width: 250, height: 250 } },
+      /* verbose= */ false
+    );
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+  });
 
   return (
-    <Box>
-      <Container>
-        <Card>
-          <HeaderQr>Escanear codigo QR - SBL</HeaderQr>
-          <CardContent>
-            <Grid container spacing={2}>
-              <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
-                <Stack
-                  mt={2}
-                  direction="row"
-                  justifyContent="space-between"
-                  spacing={2}
-                >
-                  <TextField
-                    label="Ingrese una Observación"
-                    variant="outlined"
-                    defaultValue=""
-                    onChange={(e) => {
-                      setText(e.target.value);
-                      if (text.length >= 5) {
-                        setErrorTexto(true);
-                        setLeyenda(
-                          'La texto tiene mas de 5 caracteres'
-                        );
-                      } else {
-                        setErrorTexto(false);
-                        setLeyenda('');
-                      }
-                    }}
-                    error={errorTexto}
-                    helperText={leyenda}
-                  />
-                  <Button
-                    className="btn"
-                    variant="contained"
-                    color="primary"
-                    onClick={() => generateQrCode()}
-                  >
-                    Generar
-                  </Button>
-                </Stack>
-                <br />
-                {imageUrl ? (
-                  <a href={imageUrl} download>
-                    <img src={imageUrl} alt="img" />
-                  </a>
-                ) : null}
-                <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={onScanFile}
-                  >
-                    Scan Qr Code
-                  </Button>
-                  <QrReader
-                    ref={qrRef}
-                    delay={300}
-                    style={{ width: '100%' }}
-                    onError={handleErrorFile}
-                    onScan={handleScanFile}
-                    legacyMode
-                  />
-                  <h3>Scanned Code:{scanResultFile}</h3>
-                </Grid>
-                <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
-                  <h3>Qr Code Scan by Web Cam</h3>
-                  <QrReader
-                    delay={300}
-                    style={{ width: '100%' }}
-                    onError={handleErrorWebCam}
-                    onScan={handleScanWebCam}
-                  />
-                  <h3>Scanned By WebCam Code: {scanResultWebCam}</h3>
-                </Grid>
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
-      </Container>
-    </Box>
+    <div>
+      <h1>Where is Starman</h1>
+      <p>description</p>
+      <div id="reader" width="600px"></div>
+      <ol>
+        {scannedCodes.map((scannedCode, index) => (
+          <li key={index}>{scannedCode.decodedText}</li>
+        ))}
+      </ol>
+      <button onClick={activateLasers}>Activate Lasers</button>
+    </div>
   );
 };
-
-const HeaderQr = styled('h2')((theme) => ({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  background: '#6344dc',
-  color: '#fff',
-  padding: '10px',
-}));
 
 export default Collect;
