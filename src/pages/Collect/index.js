@@ -35,7 +35,7 @@ const Collect = () => {
       /* verbose= */ false
     );
     html5QrcodeScanner.render(onScanSuccess, onScanFailure);
-  });
+  }, []);
 
   return (
     <div>
