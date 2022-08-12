@@ -76,14 +76,12 @@ const ScanQr = () => {
       <h1>Escanear Codigo QR</h1>
       <p>Documento electrónico</p>
       <div id="reader" width="600px"></div>
-      <ol>
-        {scannedCodes.map((scannedCode, index) => (
-          <div key={index}>
-            {/* {String(scannedCode.decodedText).substring(0, 70)} */}
-            {verificarDocumentoElectronico(scannedCode.decodedText)}
-          </div>
-        ))}
-      </ol>
+      {scannedCodes.map((scannedCode, index) => (
+        <div key={index}>
+          {/* {String(scannedCode.decodedText).substring(0, 70)} */}
+          {verificarDocumentoElectronico(scannedCode.decodedText)}
+        </div>
+      ))}
       <Button
         onClick={activateLasers}
         className="btn"
