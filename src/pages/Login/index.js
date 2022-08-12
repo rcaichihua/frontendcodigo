@@ -10,15 +10,20 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import logo from './logo.png';
 
 const Login = () => {
   const { login, isAuth } = useContext(AuthContext);
   const [text, setText] = useState('');
-  const [errorTexto, setErrorTexto] = useState(false);
-  const [leyenda, setLeyenda] = useState('');
+  const [isShown, setIsSHown] = useState(false);
+  // const [errorTexto, setErrorTexto] = useState(false);
+  // const [leyenda, setLeyenda] = useState('');
+  const togglePassword = () => {
+    setIsSHown((isShown) => !isShown);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -42,12 +47,13 @@ const Login = () => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign In
-        </Typography>
+        {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}> */}
+        <img src={logo} className="App-logo" alt="logo" />
+        {/* <LockOutlinedIcon /> */}
+        {/* </Avatar> */}
+        {/* <Typography component="h1" variant="h5">
+          Inicio de sesión
+        </Typography> */}
         <Box
           component="form"
           onSubmit={handleSubmit}
@@ -59,37 +65,55 @@ const Login = () => {
             required
             fullWidth
             id="user"
-            label="User"
+            label="Nombre de usuario"
             name="user"
             autoFocus
             variant="outlined"
             defaultValue=""
-            onChange={(e) => {
-              setText(e.target.value);
-              if (text.length === 0) {
-                setErrorTexto(true);
-                setLeyenda('Ingrese un usuario');
-              } else {
-                setErrorTexto(false);
-                setLeyenda('');
-              }
-            }}
-            error={errorTexto}
-            helperText={leyenda}
+            value={text}
+            onChange={(event) => setText(event.target.value)}
+            error={text === ''}
+            helperText={
+              text === ''
+                ? 'Debe ingresar su nombre de usuario!'
+                : ' '
+            }
+            // onChange={(e) => {
+            //   setText(e.target.value);
+            //   if (text.length === 0) {
+            //     setErrorTexto(true);
+            //     setLeyenda('Ingrese un usuario');
+            //   } else {
+            //     setErrorTexto(false);
+            //     setLeyenda('');
+            //   }
+            // }}
+            //error={errorTexto}
+            //helperText={leyenda}
           />
           <TextField
             margin="normal"
             required
             fullWidth
             name="pass"
-            label="Password"
-            type="password"
+            label="Contraseña"
+            type={isShown ? 'text' : 'password'} //"password"
             id="password"
             autoComplete="current-password"
           />
           <FormControlLabel
+            control={
+              <Checkbox
+                color="secondary"
+                checked={isShown}
+                onChange={togglePassword}
+              />
+            }
+            label="Ver contraseña"
+          />
+          <FormControlLabel
             control={<Checkbox color="primary" />}
-            label="Remember me"
+            label="Guardar inicio de sesión"
           />
           <Button
             type="submit"
@@ -97,7 +121,7 @@ const Login = () => {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Login
+            Ingresar
           </Button>
         </Box>
       </Box>

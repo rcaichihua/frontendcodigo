@@ -1,15 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Html5QrcodeScanner } from 'html5-qrcode';
-import {
-  Box,
-  Container,
-  Grid,
-  Card,
-  CardContent,
-  Stack,
-  TextField,
-  Button,
-} from '@mui/material';
 
 const Collect = () => {
   const [scannedCodes, setScannedCodes] = useState([]);
@@ -49,22 +39,15 @@ const Collect = () => {
 
   return (
     <div>
-      <h1>Escanear Codigo QR</h1>
-      <p>Documento electrónico</p>
+      <h1>Escanear Codigo</h1>
+      <p>Documentos electrónicos</p>
       <div id="reader" width="600px"></div>
       <ol>
         {scannedCodes.map((scannedCode, index) => (
           <li key={index}>{scannedCode.decodedText}</li>
         ))}
       </ol>
-      <Button
-        onClick={activateLasers}
-        className="btn"
-        variant="contained"
-        color="primary"
-      >
-        Realizar pago
-      </Button>
+      <button onClick={activateLasers}>Activate Lasers</button>
     </div>
   );
 };
