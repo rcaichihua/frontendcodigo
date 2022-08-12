@@ -10,6 +10,7 @@ import {
   // TextField,
   Button,
 } from '@mui/material';
+import DocumentoElectronico from './../../components/DocumentoElectronico/index';
 
 const ScanQr = () => {
   const [scannedCodes, setScannedCodes] = useState([]);
@@ -52,9 +53,7 @@ const ScanQr = () => {
       //RUC Beneficencia de Lima
       if (documentoElectronico.substring(0, 11) === '20135604551') {
         return (
-          '<span>Serie: </span>' +
-          documentoElectronico.substring(15, 18) +
-          '<br/> - RUC: 20135604551 - Beneficencia de Lima'
+          <DocumentoElectronico key={1} item={documentoElectronico} />
         );
       } else {
         return (
