@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Html5QrcodeScanner } from 'html5-qrcode';
 import {
-  Box,
-  Container,
-  Grid,
-  Card,
-  CardContent,
-  Stack,
-  TextField,
+  // Box,
+  // Container,
+  // Grid,
+  // Card,
+  // CardContent,
+  // Stack,
+  // TextField,
   Button,
 } from '@mui/material';
 
