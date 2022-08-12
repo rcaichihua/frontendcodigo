@@ -115,12 +115,6 @@ const DrawerButton = ({ text, icon, action }) => {
 const MainLayoutt = () => {
   const history = useNavigate();
   const { user, logout, isAuth } = useContext(AuthContext);
-  const corchete = [
-    {
-      abre: '[',
-      cierra: ']',
-    },
-  ];
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
