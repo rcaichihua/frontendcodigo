@@ -48,10 +48,7 @@ const ScanQr = () => {
   }, []);
 
   function verificarDocumentoElectronico(documentoElectronico) {
-    if (
-      documentoElectronico.length >= 1 &&
-      documentoElectronico.length <= 70
-    ) {
+    if (documentoElectronico.length >= 400) {
       //RUC Beneficencia de Lima
       if (documentoElectronico.substring(0, 11) === '20135604551') {
         return (
