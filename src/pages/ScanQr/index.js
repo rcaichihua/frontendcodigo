@@ -60,10 +60,16 @@ const ScanQr = () => {
           '<br/> - RUC: 20135604551 - Beneficencia de Lima'
         );
       } else {
-        return 'El documento electrónico no es válido';
+        return (
+          'El RUC no es válido' +
+          documentoElectronico.substring(0, 11)
+        );
       }
     } else {
-      return 'El documento electrónico no es válido';
+      return (
+        'El documento electrónico no es válido' +
+        documentoElectronico.substring(0, 11)
+      );
     }
   }
 
