@@ -47,6 +47,14 @@ const ScanQr = () => {
     html5QrcodeScanner.render(onScanSuccess, onScanFailure);
   }, []);
 
+  function verificarDocumentoElectronico(documentoElectronico) {
+    if (documentoElectronico.length < 70) {
+      return 'El documento electrónico no es válido';
+    } else {
+      return 'El documento electrónico es válido';
+    }
+  }
+
   return (
     <div>
       <h1>Escanear Codigo QR</h1>
@@ -54,7 +62,10 @@ const ScanQr = () => {
       <div id="reader" width="600px"></div>
       <ol>
         {scannedCodes.map((scannedCode, index) => (
-          <li key={index}>{scannedCode.decodedText}</li>
+          <div key={index}>
+            {/* {String(scannedCode.decodedText).substring(0, 70)} */}
+            {verificarDocumentoElectronico(scannedCode.decodedText)}
+          </div>
         ))}
       </ol>
       <Button
