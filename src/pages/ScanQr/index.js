@@ -53,7 +53,7 @@ const ScanQr = () => {
       documentoElectronico.length <= 70
     ) {
       //RUC Beneficencia de Lima
-      if (documentoElectronico.substring(0, 10) === '20135604551') {
+      if (documentoElectronico.substring(0, 11) === '20135604551') {
         return (
           '<span>Serie: </span>' +
           documentoElectronico.substring(15, 18) +
