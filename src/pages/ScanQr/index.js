@@ -67,8 +67,9 @@ const ScanQr = () => {
       }
     } else {
       return (
-        'El documento electrónico no es válido' +
-        documentoElectronico.substring(0, 11)
+        'El documento electrónico no es válido ' +
+        documentoElectronico.substring(0, 11) +
+        ' documentoElectronico.length'
       );
     }
   }
