@@ -48,10 +48,22 @@ const ScanQr = () => {
   }, []);
 
   function verificarDocumentoElectronico(documentoElectronico) {
-    if (documentoElectronico.length < 70) {
-      return 'El documento electrónico no es válido';
+    if (
+      documentoElectronico.length >= 1 &&
+      documentoElectronico.length <= 70
+    ) {
+      //RUC Beneficencia de Lima
+      if (documentoElectronico.substring(0, 10) === '20135604551') {
+        return (
+          '<span>Serie: </span>' +
+          documentoElectronico.substring(15, 18) +
+          '<br/> - RUC: 20135604551 - Beneficencia de Lima'
+        );
+      } else {
+        return 'El documento electrónico no es válido';
+      }
     } else {
-      return 'El documento electrónico es válido';
+      return 'El documento electrónico no es válido';
     }
   }
 
