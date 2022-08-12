@@ -6,8 +6,16 @@ const api = {
 export const authUsers = [
   {
     id: '1001',
+    perfil: 'Admin',
     username: 'roger',
-    name: 'roger',
+    name: 'Roger Caichihua',
+    pass: '123',
+  },
+  {
+    id: '1002',
+    perfil: 'Cobrador',
+    username: 'juan',
+    name: 'Juan Gonzales',
     pass: '123',
   },
 ];

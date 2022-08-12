@@ -11,7 +11,7 @@ import {
   Button,
 } from '@mui/material';
 
-const Collect = () => {
+const ScanQr = () => {
   const [scannedCodes, setScannedCodes] = useState([]);
 
   function activateLasers() {
@@ -69,4 +69,4 @@ const Collect = () => {
   );
 };
 
-export default Collect;
+export default ScanQr;

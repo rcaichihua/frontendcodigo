@@ -21,8 +21,10 @@ import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import LogoutIcon from '@mui/icons-material/Logout';
-import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
+import HomeWorkIcon from '@mui/icons-material/HomeWork';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
 
 const drawerWidth = 240;
@@ -113,7 +115,12 @@ const DrawerButton = ({ text, icon, action }) => {
 const MainLayoutt = () => {
   const history = useNavigate();
   const { user, logout, isAuth } = useContext(AuthContext);
-
+  const corchete = [
+    {
+      abre: '[',
+      cierra: ']',
+    },
+  ];
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -148,6 +155,7 @@ const MainLayoutt = () => {
             justifyContent="space-between"
           >
             <Typography variant="h6" noWrap component="div">
+              {user.perfil}&nbsp;&nbsp;-&nbsp;&nbsp;
               {user.name}
             </Typography>
           </Stack>
@@ -168,19 +176,34 @@ const MainLayoutt = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          {/* Search */}
+          {/* Escanear QR */}
           <DrawerButton
             icon={<QrCode2Icon />}
             text="Scanear QR"
-            action={() => history('/collect')}
+            action={() => history('/ScanQr')}
           />
-          {/* Favorites */}
+          {/* Cobranzas Ejecutadas*/}
           <DrawerButton
-            icon={<RequestQuoteIcon />}
+            icon={<HomeWorkIcon />}
             text="Lista de Cobranzas"
+            visible={true}
             action={() => history('/listpay')}
           />
-          {/* Logout */}
+          {/* Cobranzas en tiempo real */}
+          <DrawerButton
+            icon={<ManageHistoryIcon />}
+            text="Cobranzas Real Time"
+            visible={true}
+            action={() => history('/listpayrealtime')}
+          />
+          {/* Gestión de usuarios */}
+          <DrawerButton
+            icon={<GroupAddIcon />}
+            text="Usuarios"
+            visible={true}
+            action={() => history('/users')}
+          />
+          {/* Cerrar Sesión */}
           <DrawerButton
             icon={<LogoutIcon />}
             text="Cerrar Sesión"

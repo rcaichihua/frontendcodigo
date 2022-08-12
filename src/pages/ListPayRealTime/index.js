@@ -11,7 +11,7 @@ import {
   Button,
 } from '@mui/material';
 
-const ListPay = () => {
+const ListPayRealTime = () => {
   const [scannedCodes, setScannedCodes] = useState([]);
 
   function activateLasers() {
@@ -69,4 +69,4 @@ const ListPay = () => {
   );
 };
 
-export default ListPay;
+export default ListPayRealTime;

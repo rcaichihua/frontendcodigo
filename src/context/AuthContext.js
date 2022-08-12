@@ -6,7 +6,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const userStorage =
-    JSON.parse(localStorage.getItem('movieapp.user')) || {};
+    JSON.parse(localStorage.getItem('sgiapp.user')) || {};
 
   const [user, setUser] = useState(userStorage);
 
@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
       (user) => user.username === username && user.pass === pass
     );
     if (authUser !== undefined) {
-      localStorage.setItem('movieapp.user', JSON.stringify(authUser));
+      localStorage.setItem('sgiapp.user', JSON.stringify(authUser));
       setUser(authUser);
       return true;
     }
@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   function logout() {
-    localStorage.removeItem('movieapp.user');
+    localStorage.removeItem('sgiapp.user');
     setUser({});
     window.location.href = '/';
   }

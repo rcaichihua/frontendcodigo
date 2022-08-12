@@ -33,7 +33,7 @@ const Login = () => {
   };
 
   if (isAuth()) {
-    return <Navigate to="/collect" />;
+    return <Navigate to="/ScanQr" />;
   }
 
   return (
