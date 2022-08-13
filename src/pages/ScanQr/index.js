@@ -70,8 +70,24 @@ const ScanQr = () => {
       <Button
         // onClick={activateLasers}
         onClick={() =>
-          history('/listpay', {
-            state: { id: 1, name: documento.substring(0, 11) },
+          history('/responsepay', {
+            state: {
+              id: 1,
+              tipoDocumento:
+                documento.substring(12, 14) === '01'
+                  ? 'Factura '
+                  : documento.substring(12, 14) === '03'
+                  ? 'Boleta '
+                  : documento.substring(12, 14) === '08'
+                  ? 'N. Debito '
+                  : documento.substring(12, 14) === '07'
+                  ? 'N. Credito '
+                  : 'N/A ',
+              serie: documento.substring(15, 19),
+              numero: documento.substring(20, 28),
+              importe: documento.split('|', 6)[5],
+              estado: 'Cancelado',
+            },
           })
         }
         className="btn"

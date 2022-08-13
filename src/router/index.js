@@ -5,6 +5,7 @@ import {
   ListPayView,
   ListPayRealTimeView,
   UsersView,
+  ResponsePayView,
 } from '../pages';
 import { MainLayoutt } from '../layouts';
 
@@ -21,6 +22,7 @@ const Router = () => {
             element={<ListPayRealTimeView />}
           />
           <Route path="/users" element={<UsersView />} />
+          <Route path="/responsepay" element={<ResponsePayView />} />
         </Route>
       </Routes>
     </BrowserRouter>

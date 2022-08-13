@@ -1,71 +1,54 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Html5QrcodeScanner } from 'html5-qrcode';
+import './index.css';
+import Documento from './../../components/Documento';
+import { useState, useEffect } from 'react';
 import {
-  // Box,
-  // Container,
-  // Grid,
-  // Card,
-  // CardContent,
-  // Stack,
-  // TextField,
-  Button,
-} from '@mui/material';
+  collection,
+  query,
+  orderBy,
+  onSnapshot,
+  where,
+} from 'firebase/firestore';
+import { db } from '../../services/firebase';
 
 const ListPay = () => {
-  const [scannedCodes, setScannedCodes] = useState([]);
-  const location = useLocation();
-  function activateLasers() {
-    var decodedText = 'asdf';
-    var decodedResult = 'asdfasdfasdf';
-    console.log(scannedCodes);
-
-    setScannedCodes(
-      scannedCodes.concat([{ decodedText, decodedResult }])
-    );
-  }
+  const [documentos, setDocumentos] = useState([]);
 
   useEffect(() => {
-    function onScanSuccess(decodedText, decodedResult) {
-      // handle the scanned code as you like, for example:
-      console.log(`Code matched = ${decodedText}`, decodedResult);
-      setScannedCodes(
-        scannedCodes.concat([{ decodedText, decodedResult }])
-      );
-    }
-
-    function onScanFailure(error) {
-      // handle scan failure, usually better to ignore and keep scanning.
-      // for example:
-      console.warn(`Code scan error = ${error}`);
-    }
-
-    let html5QrcodeScanner = new Html5QrcodeScanner(
-      'reader',
-      { fps: 10, qrbox: { width: 250, height: 250 } },
-      /* verbose= */ false
+    const DocumentoColRef = query(
+      collection(db, 'documentos'),
+      where('cobrador', 'in', ['FACTURA']),
+      orderBy('fechacobro', 'desc')
     );
-    //html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+    onSnapshot(DocumentoColRef, (snapshot) => {
+      setDocumentos(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      );
+    });
   }, []);
 
   return (
-    <div>
-      <h1>Escanear Codigo QR</h1>
-      <p>{location.state.name}</p>
-      <div id="reader" width="600px"></div>
-      <ol>
-        {/* {scannedCodes.map((scannedCode, index) => (
-          <li key={index}>{scannedCode.decodedText}</li>
-        ))} */}
-      </ol>
-      <Button
-        onClick={activateLasers}
-        className="btn"
-        variant="contained"
-        color="primary"
-      >
-        Realizar pago
-      </Button>
+    <div className="documentoManager">
+      <header>Lista de documentos</header>
+      <div className="documentoManager__container">
+        <div className="documentoManager__documentos">
+          {documentos.map((documento) => (
+            <Documento
+              id={documento.id}
+              key={documento.id}
+              tipo={documento.data.tipo}
+              serie={documento.data.serie}
+              numero={documento.data.numero}
+              fechacobro={documento.data.fechacobro}
+              importe={documento.data.importe}
+              estado={documento.data.estado}
+              cobrador={documento.data.cobrador}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

@@ -4,3 +4,4 @@
 
 export { default as DocumentoElectronico } from './DocumentoElectronico';
 export { default as MensajeRespuesta } from './MensajeRespuesta';
+export { default as Documento } from './Documento';
