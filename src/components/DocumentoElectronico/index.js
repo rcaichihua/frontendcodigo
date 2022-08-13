@@ -33,13 +33,13 @@ const DocumentoElectronico = ({ item }) => {
                   ? 'N. Credito '
                   : 'N/A '}
               </Typography>
-              <Typography variant="h6">
+              <Typography variant="h4">
                 Serie:&nbsp;{item.substring(15, 19)}
               </Typography>
-              <Typography variant="h6">
+              <Typography variant="h5">
                 Número:&nbsp;{item.substring(20, 28)}
               </Typography>
-              <Typography variant="h6">
+              <Typography variant="h5">
                 Importe:&nbsp;{item.split('|', 6)[5]}
               </Typography>
             </Stack>

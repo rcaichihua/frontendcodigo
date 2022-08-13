@@ -180,23 +180,24 @@ const MainLayoutt = () => {
           <DrawerButton
             icon={<HomeWorkIcon />}
             text="Lista de Cobranzas"
-            visible={true}
             action={() => history('/listpay')}
           />
-          {/* Cobranzas en tiempo real */}
-          <DrawerButton
-            icon={<ManageHistoryIcon />}
-            text="Cobranzas Real Time"
-            visible={true}
-            action={() => history('/listpayrealtime')}
-          />
+
+          {user.perfil === 'Admin' && (
+            <DrawerButton
+              icon={<ManageHistoryIcon />}
+              text="Cobranzas Real Time"
+              action={() => history('/listpayrealtime')}
+            />
+          )}
           {/* Gestión de usuarios */}
-          <DrawerButton
-            icon={<GroupAddIcon />}
-            text="Usuarios"
-            visible={true}
-            action={() => history('/users')}
-          />
+          {user.perfil === 'Admin' && (
+            <DrawerButton
+              icon={<GroupAddIcon />}
+              text="Usuarios"
+              action={() => history('/users')}
+            />
+          )}
           {/* Cerrar Sesión */}
           <DrawerButton
             icon={<LogoutIcon />}
