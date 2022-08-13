@@ -1,11 +1,32 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
-import { CleaningServices } from '@mui/icons-material';
+import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import { db } from '../../services/firebase';
 
 const ResponsePay = () => {
   const history = useNavigate();
   const location = useLocation();
+
+  const handleSubmit = async () => {
+    //e.preventDefault();
+    console.log(
+      'location.state.tipoDocumento ',
+      location.state.tipoDocumento
+    );
+    try {
+      await addDoc(collection(db, 'documentos'), {
+        tipo: location.state.tipoDocumento,
+        serie: location.state.serie,
+        numero: location.state.numero,
+        importe: location.state.importe,
+        fechacobro: Timestamp.now(),
+        cobrador: location.state.cobrador,
+      });
+    } catch (err) {
+      alert(err);
+    }
+  };
 
   return (
     <div>
@@ -18,6 +39,9 @@ const ResponsePay = () => {
         {location.state.tipoDocumento !== 'N/A '
           ? location.state.tipoDocumento
           : ''}
+        {location.state.tipoDocumento !== 'N/A '
+          ? () => handleSubmit()
+          : null}
       </p>
       <p>{location.state.serie}</p>
       <p>{location.state.numero}</p>

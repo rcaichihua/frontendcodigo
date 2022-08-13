@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Html5QrcodeScanner } from 'html5-qrcode';
 import { Button } from '@mui/material';
 import { DocumentoElectronico } from './../../components';
-//import { MensajeRespuesta } from './../../components';
 import { useNavigate } from 'react-router-dom';
 
 const ScanQr = () => {
@@ -10,17 +9,8 @@ const ScanQr = () => {
   const history = useNavigate();
   const [scannedCodes, setScannedCodes] = useState([]);
 
-  // function activateLasers() {
-  //   if (documento.length === 0) {
-  //     <span>No ha escaneado ningun documento.</span>;
-  //   }
-  //   console.log('Documento', documento);
-  //   return <span>No ha escaneado ningun documento.</span>;
-  // }
-
   useEffect(() => {
     function onScanSuccess(decodedText, decodedResult) {
-      // handle the scanned code as you like, for example:
       console.log(`Code matched = ${decodedText}`, decodedResult);
       setScannedCodes(
         scannedCodes.concat([{ decodedText, decodedResult }])
@@ -28,8 +18,6 @@ const ScanQr = () => {
     }
 
     function onScanFailure(error) {
-      // handle scan failure, usually better to ignore and keep scanning.
-      // for example:
       console.warn(`Code scan error = ${error}`);
     }
 
