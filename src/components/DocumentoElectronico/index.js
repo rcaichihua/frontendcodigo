@@ -32,12 +32,14 @@ const DocumentoElectronico = ({ item }) => {
                   : item.substring(12, 14) === '07'
                   ? 'N. Credito '
                   : 'N/A '}
+              </Typography>
+              <Typography variant="h6">
                 Serie:&nbsp;{item.substring(15, 19)}
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="h6">
                 Número:&nbsp;{item.substring(20, 28)}
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="h6">
                 Importe:&nbsp;{item.split('|', 6)[5]}
               </Typography>
             </Stack>
