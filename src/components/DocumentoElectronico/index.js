@@ -22,7 +22,7 @@ const DocumentoElectronico = ({ item }) => {
                 width: '100%',
               }}
             >
-              <Typography variant="h6">
+              <Typography variant="h3">
                 {item.substring(12, 14) === '01'
                   ? 'Factura '
                   : item.substring(12, 14) === '03'
@@ -36,11 +36,11 @@ const DocumentoElectronico = ({ item }) => {
               <Typography variant="h4">
                 Serie:&nbsp;{item.substring(15, 19)}
               </Typography>
-              <Typography variant="h5">
+              <Typography variant="h4">
                 Número:&nbsp;{item.substring(20, 28)}
               </Typography>
-              <Typography variant="h5">
-                Importe:&nbsp;{item.split('|', 6)[5]}
+              <Typography variant="h4">
+                Importe:&nbsp;{item.split('|', 6)[5]} Soles
               </Typography>
             </Stack>
           </Stack>

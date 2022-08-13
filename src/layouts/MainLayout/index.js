@@ -180,7 +180,11 @@ const MainLayoutt = () => {
           <DrawerButton
             icon={<HomeWorkIcon />}
             text="Lista de Cobranzas"
-            action={() => history('/listpay')}
+            action={() =>
+              history('/listpay', {
+                state: { id: 1, name: '' },
+              })
+            }
           />
 
           {user.perfil === 'Admin' && (

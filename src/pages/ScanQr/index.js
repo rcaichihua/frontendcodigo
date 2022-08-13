@@ -1,29 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Html5QrcodeScanner } from 'html5-qrcode';
-import {
-  // Box,
-  // Container,
-  // Grid,
-  // Card,
-  // CardContent,
-  // Stack,
-  // TextField,
-  Button,
-} from '@mui/material';
-import DocumentoElectronico from './../../components/DocumentoElectronico/index';
+import { Button } from '@mui/material';
+import { DocumentoElectronico } from './../../components';
+//import { MensajeRespuesta } from './../../components';
+import { useNavigate } from 'react-router-dom';
 
 const ScanQr = () => {
+  let documento = '';
+  const history = useNavigate();
   const [scannedCodes, setScannedCodes] = useState([]);
 
-  function activateLasers() {
-    var decodedText = 'asdf';
-    var decodedResult = 'asdfasdfasdf';
-    console.log(scannedCodes);
-
-    setScannedCodes(
-      scannedCodes.concat([{ decodedText, decodedResult }])
-    );
-  }
+  // function activateLasers() {
+  //   if (documento.length === 0) {
+  //     <span>No ha escaneado ningun documento.</span>;
+  //   }
+  //   console.log('Documento', documento);
+  //   return <span>No ha escaneado ningun documento.</span>;
+  // }
 
   useEffect(() => {
     function onScanSuccess(decodedText, decodedResult) {
@@ -52,22 +45,15 @@ const ScanQr = () => {
     if (documentoElectronico.length >= 400) {
       //RUC Beneficencia de Lima
       if (documentoElectronico.substring(0, 11) === '20135604551') {
+        documento = documentoElectronico;
         return (
           <DocumentoElectronico key={1} item={documentoElectronico} />
         );
       } else {
-        return (
-          'El RUC no es válido' +
-          documentoElectronico.substring(0, 11)
-        );
+        return <h2>RUC no válido</h2>;
       }
     } else {
-      return (
-        'El documento electrónico no es válido ' +
-        documentoElectronico.substring(0, 11) +
-        ' ' +
-        documentoElectronico.length
-      );
+      return <h2>Código Qr no válido</h2>;
     }
   }
 
@@ -78,12 +64,16 @@ const ScanQr = () => {
       <div id="reader" width="600px"></div>
       {scannedCodes.map((scannedCode, index) => (
         <div key={index}>
-          {/* {String(scannedCode.decodedText).substring(0, 70)} */}
           {verificarDocumentoElectronico(scannedCode.decodedText)}
         </div>
       ))}
       <Button
-        onClick={activateLasers}
+        // onClick={activateLasers}
+        onClick={() =>
+          history('/listpay', {
+            state: { id: 1, name: documento.substring(0, 11) },
+          })
+        }
         className="btn"
         variant="contained"
         color="primary"

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Html5QrcodeScanner } from 'html5-qrcode';
 import {
   // Box,
@@ -13,7 +14,7 @@ import {
 
 const ListPay = () => {
   const [scannedCodes, setScannedCodes] = useState([]);
-
+  const location = useLocation();
   function activateLasers() {
     var decodedText = 'asdf';
     var decodedResult = 'asdfasdfasdf';
@@ -44,18 +45,18 @@ const ListPay = () => {
       { fps: 10, qrbox: { width: 250, height: 250 } },
       /* verbose= */ false
     );
-    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+    //html5QrcodeScanner.render(onScanSuccess, onScanFailure);
   }, []);
 
   return (
     <div>
       <h1>Escanear Codigo QR</h1>
-      <p>Documento electrónico</p>
+      <p>{location.state.name}</p>
       <div id="reader" width="600px"></div>
       <ol>
-        {scannedCodes.map((scannedCode, index) => (
+        {/* {scannedCodes.map((scannedCode, index) => (
           <li key={index}>{scannedCode.decodedText}</li>
-        ))}
+        ))} */}
       </ol>
       <Button
         onClick={activateLasers}
