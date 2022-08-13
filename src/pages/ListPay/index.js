@@ -16,7 +16,7 @@ const ListPay = () => {
   useEffect(() => {
     const DocumentoColRef = query(
       collection(db, 'documentos'),
-      where('cobrador', 'in', ['FACTURA']),
+      where('tipo', 'in', ['FACTURA']),
       orderBy('fechacobro', 'desc')
     );
     onSnapshot(DocumentoColRef, (snapshot) => {
