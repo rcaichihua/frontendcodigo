@@ -24,17 +24,21 @@ const DocumentoElectronico = ({ item }) => {
             >
               <Typography variant="h6">
                 {item.substring(12, 14) === '01'
-                  ? 'Factura :'
+                  ? 'Factura '
                   : item.substring(12, 14) === '03'
-                  ? 'Boleta :'
+                  ? 'Boleta '
                   : item.substring(12, 14) === '08'
-                  ? 'N. Debito :'
+                  ? 'N. Debito '
                   : item.substring(12, 14) === '07'
-                  ? 'N. Credito :'
-                  : 'N/A'}
+                  ? 'N. Credito '
+                  : 'N/A '}
                 Serie:&nbsp;{item.substring(15, 19)}
+              </Typography>
+              <Typography variant="body2">
                 Número:&nbsp;{item.substring(20, 28)}
-                Importe:&nbsp;{item.split('|', 6)[6]}
+              </Typography>
+              <Typography variant="body2">
+                Importe:&nbsp;{item.split('|', 6)[5]}
               </Typography>
             </Stack>
           </Stack>
