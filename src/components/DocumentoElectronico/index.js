@@ -32,9 +32,9 @@ const DocumentoElectronico = ({ item }) => {
                   : item.substring(12, 14) === '07'
                   ? 'N. Credito :'
                   : 'N/A'}
-                Serie:&nbsp;{item.substring(14, 19)}
+                Serie:&nbsp;{item.substring(15, 19)}
                 Número:&nbsp;{item.substring(20, 28)}
-                Importe:&nbsp;{item.split('|')[6][6]}
+                Importe:&nbsp;{item.split('|', 6)[6]}
               </Typography>
             </Stack>
           </Stack>
